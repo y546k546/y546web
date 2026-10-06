@@ -1,0 +1,611 @@
+<!DOCTYPE html>  
+<html lang="ja">  
+  
+<head>  
+  
+<meta charset="UTF-8">  
+  
+<meta  
+  name="viewport"  
+  content="width=device-width, initial-scale=1.0"  
+>  
+  
+<title>  
+y546の最高なウェブ  
+</title>  
+  
+<style>  
+  
+*{  
+  box-sizing:border-box;  
+}  
+  
+body{  
+  margin:0;  
+  background-color:#ffffff;  
+  color:#000000;  
+    
+  background-size:auto;  
+  background-position:center top;  
+  background-repeat:no-repeat;  
+  background-attachment:scroll;  
+  
+  font-family:  
+    "Times New Roman",  
+    "Yu Mincho",  
+    serif;  
+  
+  font-size:16px;  
+  line-height:1.6;  
+}  
+  
+a{  
+  color:#0000ee;  
+  text-decoration:underline;  
+}  
+  
+a:visited{  
+  color:#551a8b;  
+}  
+  
+a:hover{  
+  color:red;  
+}  
+  
+#site{  
+  width:760px;  
+  max-width:calc(100% - 30px);  
+  margin:30px auto;  
+}  
+  
+header{  
+  border-bottom:1px dotted currentColor;  
+  padding-bottom:15px;  
+  margin-bottom:20px;  
+}  
+  
+.site-title{  
+  font-size:32px;  
+  margin-bottom:5px;  
+}  
+  
+.site-description{  
+  white-space:pre-wrap;  
+}  
+  
+#content{  
+  min-height:300px;  
+}  
+  
+.main-links{  
+  margin-top:25px;  
+}  
+  
+.main-navigation{  
+  display:flex;  
+  flex-wrap:wrap;  
+  gap:22px;  
+  margin-bottom:35px;  
+}  
+  
+.main-navigation a{  
+  font-size:18px;  
+}  
+  
+.home-photos{  
+  margin-top:25px;  
+}  
+  
+.home-photo{  
+  max-width:100%;  
+  height:auto;  
+  display:block;  
+  margin:0 0 25px 0;  
+}  
+  
+.category-list{  
+  margin-top:10px;  
+}  
+  
+.category-item{  
+  margin:7px 0;  
+}  
+  
+.category-date{  
+  display:inline;  
+  margin-right:8px;  
+  font-size:13px;  
+}  
+  
+.detail{  
+  padding-top:5px;  
+}  
+  
+.detail-title{  
+  font-size:28px;  
+  margin-bottom:20px;  
+}  
+  
+.detail-date{  
+  font-size:13px;  
+  margin-bottom:5px;  
+}  
+  
+.detail-image{  
+  max-width:100%;  
+  height:auto;  
+  display:block;  
+  margin:15px 0;  
+}  
+  
+.detail-text{  
+  white-space:pre-wrap;  
+  margin:20px 0;  
+}  
+  
+.detail-link{  
+  margin:20px 0;  
+}  
+  
+.back{  
+  margin-top:40px;  
+  border-top:1px dotted currentColor;  
+  padding-top:10px;  
+}  
+  
+footer{  
+  margin-top:50px;  
+  padding-top:10px;  
+  border-top:1px dotted currentColor;  
+  font-size:12px;  
+}  
+  
+@media(max-width:800px){  
+  
+  #site{  
+    width:auto;  
+    max-width:calc(100% - 20px);  
+    margin:15px auto;  
+  }  
+  
+  .site-title{  
+    font-size:26px;  
+  }  
+  
+}  
+  
+</style>  
+  
+</head>  
+  
+  
+<body>  
+  
+<div id="site">  
+  
+<header>  
+  
+<div class="site-title">  
+y546の最高なウェブ  
+</div>  
+  
+<div class="site-description">  
+WELCOME TO MY WEBSITE.  
+</div>  
+  
+</header>  
+  
+  
+<main id="content"></main>  
+  
+  
+<footer>  
+© 2026  
+y546の最高なウェブ  
+</footer>  
+  
+  
+</div>  
+  
+  
+<script>  
+  
+const siteData =  
+{"link":[],"goods":[],"music":[],"news":[],"other":[]};  
+  
+const categories =  
+[{"id":"link","name":"LINK","type":"link"},{"id":"goods","name":"GOODS","type":"goods"},{"id":"music","name":"MUSIC","type":"music"},{"id":"news","name":"NEWS","type":"news"},{"id":"other","name":"OTHER","type":"other"}];  
+  
+const homePhotos =  
+[];  
+  
+  
+function escapeHTML(str){  
+  
+  if(  
+    str === undefined ||  
+    str === null  
+  ){  
+    return "";  
+  }  
+  
+  return String(str)  
+    .replace(/&/g,"&amp;")  
+    .replace(/</g,"&lt;")  
+    .replace(/>/g,"&gt;")  
+    .replace(/"/g,"&quot;")  
+    .replace(/'/g,"&#039;");  
+}  
+  
+  
+function escapeAttribute(str){  
+  
+  if(  
+    str === undefined ||  
+    str === null  
+  ){  
+    return "";  
+  }  
+  
+  return String(str)  
+    .replace(/&/g,"&amp;")  
+    .replace(/"/g,"&quot;")  
+    .replace(/</g,"&lt;")  
+    .replace(/>/g,"&gt;");  
+}  
+  
+  
+function getCategory(id){  
+  
+  return categories.find(function(category){  
+  
+    return category.id === id;  
+  
+  });  
+  
+}  
+  
+  
+/* =========================  
+   FIRST PAGE  
+========================= */  
+  
+function showHome(){  
+  
+  window.scrollTo(0,0);  
+  
+  const content =  
+    document.getElementById("content");  
+  
+  let html =  
+    '<div class="main-links">';  
+  
+  
+  html +=  
+    '<div class="main-navigation">';  
+  
+  categories.forEach(function(category){  
+  
+    html +=  
+      '<a href="#" ' +  
+      'onclick="showCategory(\'' +  
+      category.id +  
+      '\'); return false;">' +  
+      escapeHTML(category.name) +  
+      '</a>';  
+  
+  });  
+  
+  html +=  
+    '</div>';  
+  
+  
+  if(homePhotos.length > 0){  
+  
+    html +=  
+      '<div class="home-photos">';  
+  
+    homePhotos.forEach(function(photo){  
+  
+      if(!photo.image){  
+        return;  
+      }  
+  
+      if(photo.link){  
+  
+        html +=  
+          '<a href="' +  
+          escapeAttribute(photo.link) +  
+          '" target="_blank" ' +  
+          'rel="noopener noreferrer">' +  
+  
+          '<img ' +  
+          'class="home-photo" ' +  
+          'src="' +  
+          escapeAttribute(photo.image) +  
+          '" alt="">' +  
+  
+          '</a>';  
+  
+      }else{  
+  
+        html +=  
+          '<img ' +  
+          'class="home-photo" ' +  
+          'src="' +  
+          escapeAttribute(photo.image) +  
+          '" alt="">';  
+  
+      }  
+  
+    });  
+  
+    html +=  
+      '</div>';  
+  }  
+  
+  
+  html +=  
+    '</div>';  
+  
+  
+  content.innerHTML =  
+    html;  
+}  
+  
+  
+/* =========================  
+   SECOND PAGE  
+========================= */  
+  
+function showCategory(type){  
+  
+  window.scrollTo(0,0);  
+  
+  const content =  
+    document.getElementById("content");  
+  
+  const category =  
+    getCategory(type);  
+  
+  if(!category){  
+  
+    showHome();  
+  
+    return;  
+  }  
+  
+  
+  let html =  
+    '<div class="back" ' +  
+    'style="margin-top:0;margin-bottom:30px;border-top:0;">' +  
+  
+    '<a href="#" ' +  
+    'onclick="showHome(); return false;">' +  
+  
+    '← HOME' +  
+  
+    '</a>' +  
+  
+    '</div>';  
+  
+  
+  html +=  
+    '<h1>' +  
+    escapeHTML(category.name) +  
+    '</h1>';  
+  
+  
+  html +=  
+    '<div class="category-list">';  
+  
+  
+  const items =  
+    siteData[type] || [];  
+  
+  
+  items.forEach(function(item,index){  
+  
+    html +=  
+      '<div class="category-item">';  
+  
+  
+    if(  
+      category.name === "NEWS" &&  
+      item.date  
+    ){  
+  
+      html +=  
+        '<span class="category-date">' +  
+        escapeHTML(item.date) +  
+        '</span>';  
+  
+    }  
+  
+  
+    html +=  
+      '<span>' +  
+      (index+1) +  
+      '. ' +  
+      '</span>';  
+  
+  
+    html +=  
+      '<a href="#" ' +  
+      'onclick="showDetail(\'' +  
+      type +  
+      '\',\'' +  
+      item.id +  
+      '\'); return false;">' +  
+  
+      escapeHTML(item.title) +  
+  
+      '</a>';  
+  
+  
+    html +=  
+      '</div>';  
+  
+  });  
+  
+  
+  html +=  
+    '</div>';  
+  
+  
+  content.innerHTML =  
+    html;  
+}  
+  
+  
+/* =========================  
+   THIRD PAGE  
+========================= */  
+  
+function showDetail(type,id){  
+  
+  window.scrollTo(0,0);  
+  
+  const items =  
+    siteData[type] || [];  
+  
+  const item =  
+    items.find(function(x){  
+      return x.id === id;  
+    });  
+  
+  
+  if(!item){  
+  
+    showHome();  
+  
+    return;  
+  }  
+  
+  
+  const category =  
+    getCategory(type);  
+  
+  
+  const categoryName =  
+    category  
+      ? category.name  
+      : "";  
+  
+  
+  const content =  
+    document.getElementById("content");  
+  
+  
+  let html =  
+    '<div class="back" ' +  
+    'style="margin-top:0;margin-bottom:30px;border-top:0;">' +  
+  
+    '<a href="#" ' +  
+    'onclick="showCategory(\'' +  
+    type +  
+    '\'); return false;">' +  
+  
+    '← ' +  
+    escapeHTML(categoryName) +  
+  
+    '</a>' +  
+  
+    '</div>';  
+  
+  
+  html +=  
+    '<div class="detail">';  
+  
+  
+  if(  
+    categoryName === "NEWS" &&  
+    item.date  
+  ){  
+  
+    html +=  
+      '<div class="detail-date">' +  
+      escapeHTML(item.date) +  
+      '</div>';  
+  
+  }  
+  
+  
+  html +=  
+    '<div class="detail-title">' +  
+    escapeHTML(item.title) +  
+    '</div>';  
+  
+  
+  if(item.image){  
+  
+    html +=  
+      '<img ' +  
+      'class="detail-image" ' +  
+      'src="' +  
+      escapeAttribute(item.image) +  
+      '" alt="">';  
+  
+  }  
+  
+  
+  if(item.text){  
+  
+    html +=  
+      '<div class="detail-text">' +  
+      escapeHTML(item.text) +  
+      '</div>';  
+  
+  }  
+  
+  
+  if(item.link){  
+  
+    html +=  
+      '<div class="detail-link">' +  
+  
+      '<a href="' +  
+      escapeAttribute(item.link) +  
+      '" target="_blank" ' +  
+      'rel="noopener noreferrer">' +  
+  
+      'LINK' +  
+  
+      '</a>' +  
+  
+      '</div>';  
+  
+  }  
+  
+  
+  html +=  
+    '<div class="back">' +  
+  
+    '<a href="#" ' +  
+    'onclick="showCategory(\'' +  
+    type +  
+    '\'); return false;">' +  
+  
+    '← ' +  
+    escapeHTML(categoryName) +  
+  
+    '</a>' +  
+  
+    '</div>';  
+  
+  
+  html +=  
+    '</div>';  
+  
+  
+  content.innerHTML =  
+    html;  
+}  
+  
+  
+showHome();  
+  
+</script>  
+  
+</body>  
+</html>
